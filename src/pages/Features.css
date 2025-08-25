@@ -1,0 +1,134 @@
+.features {
+  padding: 4rem 0 6rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  min-height: 80vh;
+}
+
+.features .container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.features-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4F46E5;
+  margin-bottom: 1rem;
+}
+
+.features-description {
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-bottom: 2.5rem;
+}
+
+.features-list {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.08);
+  padding: 2rem 1.5rem;
+  flex: 1 1 250px;
+  min-width: 250px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.15);
+}
+
+.feature-icon {
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .features .container {
+    max-width: 98vw;
+    padding: 0 1rem;
+  }
+  .features-list {
+    gap: 1rem;
+  }
+  .feature-card {
+    padding: 1.5rem 1rem;
+    min-width: 200px;
+    max-width: 260px;
+  }
+  .features-title {
+    font-size: 2rem;
+  }
+  .features-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .features {
+    padding: 1.5rem 0 2rem;
+    min-height: auto;
+  }
+  .features .container {
+    padding: 0 0.5rem;
+  }
+  .features-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+  .features-description {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    padding: 0 0.5rem;
+  }
+  .features-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+  }
+  .feature-card {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    padding: 1.2rem 1rem;
+    margin: 0 auto;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.10);
+    border-radius: 14px;
+  }
+  .feature-icon {
+    margin-bottom: 0.7rem;
+  }
+  .feature-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .feature-card p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+}
