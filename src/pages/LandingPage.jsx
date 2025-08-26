@@ -4,8 +4,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import "./LandingPage.css";
 import { useEffect } from "react";
+import { connect } from "react-redux";
 
-export default function LandingPage() {
+const LandingPage = ({userInfo}) => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -32,12 +33,18 @@ export default function LandingPage() {
                 in minutes with the help of AI
               </p>
               <div style={{ display: "flex" }}>
-                <button
+                {!userInfo && <button
                   className="btn btn-primary btn-large"
                   onClick={() => navigate("/login")}
                 >
                   Get Started
-                </button>
+                </button>}
+                {userInfo && <button
+                  className="btn btn-primary btn-large"
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Dashboard
+                </button>}
                 <button
                   className="btn btn-secondary"
                   style={{
@@ -315,3 +322,16 @@ export default function LandingPage() {
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+  userInfo: state.auth.userInfo,
+});
+
+const mapDispatchToProps = {
+  // login,
+  // register,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

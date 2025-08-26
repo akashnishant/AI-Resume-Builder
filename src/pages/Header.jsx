@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { connect } from "react-redux";
 import "./Header.css";
+import { logout } from "../redux/actions/authAction";
 
-const Header = () => {
+const Header = ({userInfo, logout}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('');
   const navigate = useNavigate();
@@ -23,6 +25,10 @@ const Header = () => {
   const handleLogoClick = () => {
     setActiveItem('/'); // Reset active state when going to home
     navigate('/');
+  };
+  
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -74,7 +80,7 @@ const Header = () => {
           >
             Pricing
           </a>
-          <a 
+          {!userInfo && <a 
             href="login" 
             className={`nav-link ${activeItem === '/login' ? 'nav-active' : ''}`}
             onClick={(e) => {
@@ -83,10 +89,23 @@ const Header = () => {
             }}
           >
             Login
-          </a>
-          <button className="btn btn-primary" onClick={() => handleNavClick('/login')}>
+          </a>}
+          {userInfo && <a 
+            href="dashboard" 
+            className={`nav-link ${activeItem === '/dashboard' ? 'nav-active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('/dashboard');
+            }}
+          >
+            Dashboard
+          </a>}
+          {!userInfo && <button className="btn btn-primary" onClick={() => handleNavClick('/login')}>
             Get Started
-          </button>
+          </button>}
+          {userInfo && <button className="btn btn-primary" onClick={() => handleLogout()}>
+            Logout
+          </button>}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -105,4 +124,14 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+  userInfo: state.auth.userInfo,
+});
+
+const mapDispatchToProps = {
+  logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
