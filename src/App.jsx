@@ -6,6 +6,7 @@ import AIDemo from "./pages/AIDemo";
 import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
 import ScrollToTop from "./components/ScrollToTop";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

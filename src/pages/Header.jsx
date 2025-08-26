@@ -1,13 +1,34 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import "./Header.css";
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Update active item when route changes
+  useEffect(() => {
+    setActiveItem(location.pathname);
+  }, [location]);
+
+  const handleNavClick = (path) => {
+    setActiveItem(path);
+    navigate(path);
+    setIsMenuOpen(false);
+  };
+
+  const handleLogoClick = () => {
+    setActiveItem('/'); // Reset active state when going to home
+    navigate('/');
+  };
+
   return (
     <header className="header">
       <div className="container">
-        <div className="logo" onClick={() => navigate("/")}>
+        <div className="logo" onClick={handleLogoClick}>
           <div className="logo-icon">
             <svg
               width="24"
@@ -31,18 +52,54 @@ const Header = () => {
           <span className="logo-text">AI Resume Builder</span>
         </div>
 
-        <nav className="nav">
-          <a href="features" className="nav-link" onClick={() => navigate('/features')}>
+        {/* Desktop Navigation */}
+        <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
+          <a 
+            href="features" 
+            className={`nav-link ${activeItem === '/features' ? 'nav-active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('/features');
+            }}
+          >
             Features
           </a>
-          <a href="pricing" className="nav-link" onClick={() => navigate('/pricing')}>
+          <a 
+            href="pricing" 
+            className={`nav-link ${activeItem === '/pricing' ? 'nav-active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('/pricing');
+            }}
+          >
             Pricing
           </a>
-          <a href="login" className="nav-link" onClick={() => navigate('/login')}>
+          <a 
+            href="login" 
+            className={`nav-link ${activeItem === '/login' ? 'nav-active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('/login');
+            }}
+          >
             Login
           </a>
-          <button className="btn btn-primary" onClick={() => navigate('/login')}>Get Started</button>
+          <button className="btn btn-primary" onClick={() => handleNavClick('/login')}>
+            Get Started
+          </button>
         </nav>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
+        </button>
       </div>
     </header>
   );
