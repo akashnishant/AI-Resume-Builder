@@ -5,6 +5,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import { connect } from "react-redux";
 import { login, register } from "../redux/actions/authAction"; // <-- Redux actions
 import { useNavigate } from "react-router-dom"; // if using react-router
+import FullPageLoader from "../components/loaders/FullPageLoader";
 
 const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -110,6 +111,7 @@ const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
         style={{ paddingTop: "5rem", paddingBottom: "4rem" }}
       >
         <div className="w-full max-w-md">
+          {loading && <FullPageLoader message={isLogin ? 'Signing you in...' : 'Creating your account...'}/>}
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-slate-800 mb-2">
               {isLogin ? "Welcome Back" : "Get Started"}

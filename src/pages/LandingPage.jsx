@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 import "./LandingPage.css";
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { Sparkles } from "lucide-react";
 
 const LandingPage = ({userInfo}) => {
   useEffect(() => {
@@ -51,34 +52,17 @@ const LandingPage = ({userInfo}) => {
                     marginLeft: "10px",
                     display: "flex",
                     alignItems: "center",
-                    gap: "10px",
+                    gap: "5px",
                     padding: "0 18px 0 0",
                   }}
                   onClick={() => navigate("/ai-demo")}
                 >
                   {/* Large AI SVG with nodes */}
                   <span
-                    className="logo-icon"
+                    className="ai-demo-icon"
                     style={{ display: "flex", alignItems: "center" }}
                   >
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        rx="2"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      />
-                      <path d="M9 9h6v6H9z" fill="currentColor" />
-                    </svg>
+                    <Sparkles className="h-6 w-6 text-blue-400" />
                   </span>
                   Try AI Demo
                 </button>

@@ -21,3 +21,9 @@ body {
 main {
   padding-top: 80px;
 }
+
+@media (max-width: 768px) {
+  .content-page {
+    margin-top: 65px;
+  }
+ }

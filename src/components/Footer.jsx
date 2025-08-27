@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300">
       {/* Newsletter Section */}
-      <div className="border-b border-gray-800">
+      {/* <div className="border-b border-gray-800">
         <div className="container mx-auto px-4 py-12 justify-between">
           <div className="flex flex-col md:flex-row items-center">
             <div className="mb-6 md:mb-0">
@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-12">

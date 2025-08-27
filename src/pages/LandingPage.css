@@ -181,12 +181,23 @@
   color: white;
 }
 
+.ai-demo-icon {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
 .btn-secondary {
   transition: background 0.3s, box-shadow 0.3s, color 0.3s;
   position: relative;
 }
 
-.btn-secondary .logo-icon svg {
+.btn-secondary .ai-demo-icon svg {
   transition: filter 0.3s, transform 0.3s;
 }
 
@@ -196,7 +207,7 @@
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
 }
 
-.btn-secondary:hover .logo-icon svg {
+.btn-secondary:hover .ai-demo-icon svg {
   filter: drop-shadow(0 0 8px blue) brightness(1.8);
   transform: scale(1.15) rotate(-8deg);
 }
