@@ -7,7 +7,8 @@ import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
 import Footer from "./components/Footer";
 import TemplateGallery from "./pages/TemplateGallery";
-import ScrollToTop from "@/components/ScrollToTop.jsx";
+import ScrollTop from "./components/ScrollTop";
+
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <div style={{ marginBottom: '30px' }}>
         <Header />
       </div>
-      <ScrollToTop />
+      <ScrollTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginSignUpPage />} />

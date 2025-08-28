@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Mail, ArrowLeft } from "lucide-react";
-import ScrollToTop from "../components/ScrollToTop";
+import ScrollTop from "../components/ScrollTop";
 
 const ForgotPassword = ({ onBack }) => {
   const [email, setEmail] = useState("");
@@ -35,7 +35,7 @@ const ForgotPassword = ({ onBack }) => {
 
   return (
     <>
-      <ScrollToTop />
+      <ScrollTop />
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           {/* Back Button */}

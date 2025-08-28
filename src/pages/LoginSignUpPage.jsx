@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { User, Lock, Mail, Eye, EyeOff } from "lucide-react";
 import ForgotPassword from "./ForgotPassword";
-import ScrollToTop from "../components/ScrollToTop";
 import { connect } from "react-redux";
 import { login, register } from "../redux/actions/authAction"; // <-- Redux actions
 import { useNavigate } from "react-router-dom"; // if using react-router
 import FullPageLoader from "../components/loaders/FullPageLoader";
+import ScrollTop from "../components/ScrollTop";
 
 const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -105,7 +105,7 @@ const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
 
   return (
     <>
-      <ScrollToTop />
+      <ScrollTop />
       <div
         className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4"
         style={{ paddingTop: "5rem", paddingBottom: "4rem" }}

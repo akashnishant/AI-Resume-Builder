@@ -20,7 +20,7 @@ import Input from "../components/common/Input";
 import TextArea from "../components/common/TextArea";
 import CopyBtn from "../components/common/CopyBtn";
 import Progress from "../components/common/Progress";
-import ScrollToTop from "../components/ScrollToTop";
+import ScrollTop from "../components/ScrollTop";
 
 /**
  * AI Demo Page
@@ -259,7 +259,7 @@ export default function AIDemoPage() {
 
   return (
     <>
-    <ScrollToTop />
+    <ScrollTop />
     <div className="min-h-screen bg-gray-950 text-white mt-20 content-page">
       {/* Top Bar */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-gray-950/80 backdrop-blur">
