@@ -5,9 +5,9 @@ import LoginSignUpPage from "./pages/LoginSignUpPage";
 import AIDemo from "./pages/AIDemo";
 import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
-import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import TemplateGallery from "./pages/TemplateGallery";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
