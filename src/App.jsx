@@ -7,7 +7,7 @@ import Features from "./pages/Features";
 import Pricing from "./pages/Pricing";
 import Footer from "./components/Footer";
 import TemplateGallery from "./pages/TemplateGallery";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "@/components/ScrollToTop.jsx";
 
 function App() {
   return (
