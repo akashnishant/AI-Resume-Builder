@@ -8,9 +8,19 @@ import Pricing from "./pages/Pricing";
 import Footer from "./components/Footer";
 import TemplateGallery from "./pages/TemplateGallery";
 import ScrollTop from "./components/ScrollTop";
+import Admin from "./pages/admin/Admin";
+import Users from "./pages/admin/Users";
+import Resumes from "./pages/admin/Resumes";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import { connect } from "react-redux";
+import VerifiedUsers from "./pages/admin/VerifiedUsers";
+import UnverifiedUsers from "./pages/admin/UnverifiedUsers";
+import SubscribedUsers from "./pages/admin/SubscribedUsers";
+import Dashboard from "./pages/Dashboard";
+import ResumeTemplatesGallery from "./pages/ResumeTemplatesGallery";
 
-
-function App() {
+function App({userInfo}) {
+  const user = userInfo !== null && userInfo !== undefined ? userInfo : null;
   return (
     <div className="App">
       <div style={{ marginBottom: '30px' }}>
@@ -23,11 +33,54 @@ function App() {
         <Route path="/ai-demo" element={<AIDemo />} />
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/templates" element={<TemplateGallery />} />
+        <Route path="/templates" element={<ResumeTemplatesGallery />} />
+        {/* <Route path="/templates" element={<TemplateGallery />} /> */}
+
+        {/* Protected Dashboard Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute user={user !== null && user !== undefined ? user?.user : null}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        {/* Protected Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute user={user !== null && user !== undefined ? user?.user : null}>
+              <Admin />
+            </ProtectedRoute>
+          }
+        >
+          {/* Users sub-routes */}
+          <Route path="users">
+            <Route path="all" element={<Users />} />
+            <Route path="verified" element={<VerifiedUsers />} />
+            <Route path="unverified" element={<UnverifiedUsers />} />
+            <Route path="subscribed" element={<SubscribedUsers />} />
+            <Route path="*" element={<LandingPage />} />
+          </Route>
+
+          {/* Resumes */}
+          <Route path="resumes" element={<Resumes />} />
+          <Route path="*" element={<LandingPage />} />
+        </Route>
+        <Route path="*" element={<LandingPage />} />
       </Routes>
       <Footer />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  loading: state.auth.loading,
+  error: state.auth.error,
+  userInfo: state.auth.userInfo,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

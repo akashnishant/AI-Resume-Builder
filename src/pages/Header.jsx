@@ -29,6 +29,7 @@ const Header = ({userInfo, logout}) => {
   
   const handleLogout = () => {
     logout();
+    navigate('/');
   };
 
   return (
@@ -98,7 +99,17 @@ const Header = ({userInfo, logout}) => {
               handleNavClick('/dashboard');
             }}
           >
-            Dashboard
+            {'Dashboard'}
+          </a>}
+          {userInfo?.user?.role === 'admin' && <a 
+            href="dashboard" 
+            className={`nav-link ${activeItem?.includes('admin') ? 'nav-active' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('/admin/users/all');
+            }}
+          >
+            {userInfo?.user?.role === 'admin' ? 'Admin Panel' : 'Dashboard'}
           </a>}
           {!userInfo && <button className="btn btn-primary" onClick={() => handleNavClick('/login')}>
             Get Started

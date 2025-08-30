@@ -1,0 +1,9 @@
+.dashboard-container {
+    padding: 6rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 4rem 1rem;
+    }
+}

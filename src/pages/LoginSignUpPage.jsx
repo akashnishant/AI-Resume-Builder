@@ -29,7 +29,10 @@ const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
   // redirect if already logged in
   useEffect(() => {
     if (userInfo) {
-      navigate("/dashboard"); // <-- change to your protected route
+      if(userInfo.user.role === "admin") {
+        navigate("/admin/users/all"); // <-- change to your admin route
+      } else
+        navigate("/"); // <-- change to your protected route
     }
   }, [userInfo, navigate]);
 

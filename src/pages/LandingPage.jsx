@@ -6,6 +6,7 @@ import "./LandingPage.css";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Sparkles } from "lucide-react";
+import ResumeCarousel from "../components/ResumeCarousel";
 
 const LandingPage = ({userInfo}) => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const LandingPage = ({userInfo}) => {
     });
   }, []);
   const navigate = useNavigate();
+
   return (
     <>
       <section className="hero">
@@ -70,8 +72,8 @@ const LandingPage = ({userInfo}) => {
             </div>
 
             <div className="hero-illustration">
-              <div className="illustration-container">
-                <div className="person">
+              <div className="illustration-container" onClick={() => navigate("/templates")}>
+                {/* <div className="person">
                   <div className="person-head"></div>
                   <div className="person-body"></div>
                   <div className="person-arm"></div>
@@ -97,12 +99,17 @@ const LandingPage = ({userInfo}) => {
                     <div className="content-line long"></div>
                     <div className="content-line medium"></div>
                   </div>
-                </div>
+                </div> */}
+                <ResumeCarousel />
+
               </div>
             </div>
           </div>
         </div>
       </section>
+      {/* <div>
+        <MetaTemplate />
+      </div> */}
       <FeatureSection />
       {/* Features Section */}
       <section className="py-16 bg-gradient-to-b from-gray-900 to-gray-800">

@@ -84,6 +84,12 @@
     display: none;
   }
 
+  .nav-link.nav-active {
+    text-decoration: underline;
+    text-decoration-color: #334155;
+    text-underline-offset: 6px;
+  }
+
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;
@@ -144,17 +150,3 @@
     padding: 0 1rem;
   }
 }
-
-/* @media (max-width: 768px) {
-  .nav {
-    gap: 1rem;
-  }
-  
-  .nav-link {
-    display: none;
-  }
-  
-  .container {
-    padding: 0 1rem;
-  }
-} */
