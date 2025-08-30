@@ -22,6 +22,11 @@ main {
   padding-top: 80px;
 }
 
+.create-resume-page {
+    margin-top: 120px;
+    margin-bottom: 50px;
+  }
+
 @media (max-width: 768px) {
   .content-page {
     margin-top: 65px;
@@ -30,7 +35,8 @@ main {
     margin-top: 0px;
     height: 600px;
   }
-  .resume-template-cotainer {
-    
+  .create-resume-page {
+    margin-top: 80px;
+    margin-bottom: 30px;
   }
  }

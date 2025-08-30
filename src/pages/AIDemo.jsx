@@ -460,7 +460,7 @@ export default function AIDemoPage() {
           </Card>
 
           {/* Template Preview */}
-          <Card
+          {/* <Card
             icon={LayoutTemplate}
             title="Template Preview"
             subtitle="Switch between themes to see different vibes"
@@ -484,7 +484,7 @@ export default function AIDemoPage() {
             <div className="overflow-hidden rounded-xl border border-white/10">
               <div className={`bg-gradient-to-br ${templates.find((t) => t.key === tpl)?.accent} p-5`}> 
                 <div className="rounded-xl bg-gray-950 p-5">
-                  {/* Fake resume preview */}
+                  
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-gray-800" />
                     <div>
@@ -505,7 +505,7 @@ export default function AIDemoPage() {
                 </div>
               </div>
             </div>
-          </Card>
+          </Card> */}
         </div>
 
         {/* CTA */}

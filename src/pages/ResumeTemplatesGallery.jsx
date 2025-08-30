@@ -7,6 +7,7 @@ import AmazonTemplate2 from "./templates/AmazonTemplate2";
 import MetaTemplate2 from "./templates/MetaTemplate2";
 import AdobeTemplate2 from "./templates/AdobeTemplate2";
 import UberTemplate2 from "./templates/UberTemplate2";
+import { useNavigate } from "react-router-dom";
 
 const defaultResumeData = {
   name: "John Doe",
@@ -182,6 +183,8 @@ const Header = ({ data, color }) => (
 export default function ResumeTemplatesGallery() {
   const [selected, setSelected] = useState(null);
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="p-6 mt-20">
@@ -198,15 +201,29 @@ export default function ResumeTemplatesGallery() {
                 key={t.name}
                 onClick={() => setSelected(idx)}
                 className="border rounded-2xl shadow-md hover:shadow-xl transition cursor-pointer overflow-hidden bg-white"
-                style={{ height: '30rem'}}
+                style={{ height: '25rem'}}
               >
-                <div className="h-auto overflow-hidden" style={{ padding: '17px 0px', height: '89%'}}>
+                <div className="h-auto overflow-hidden" style={{ padding: '17px 0px', height: '80%'}}>
                   {/* Thumbnail (scaled down view) */}
                   <div className="scale-75 origin-top -translate-y-10">
                     <Comp data={defaultResumeData} />
                   </div>
                 </div>
-                <div className="p-3 text-center font-medium">{t.name}</div>
+                <div className="p-3 text-center font-medium">
+                  <button
+                    className="
+                      px-6 py-3 
+                      border-2 border-blue-600 
+                      text-blue-600 font-semibold text-lg 
+                      rounded-xl 
+                      hover:bg-blue-50 hover:shadow-md 
+                      transition-all duration-300 ease-in-out 
+                      transform hover:scale-105 active:scale-95
+                    "
+                  >
+                    Preview Template
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -216,6 +233,21 @@ export default function ResumeTemplatesGallery() {
         {selected !== null && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-[9999]">
             <div className="bg-white max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 rounded-lg relative shadow-2xl">
+              <button
+                className="
+                  px-6 py-3 
+                  bg-gradient-to-r from-blue-600 to-indigo-600 
+                  text-white font-semibold text-lg 
+                  rounded-xl shadow-lg 
+                  hover:from-indigo-700 hover:to-blue-700 
+                  transition-all duration-300 ease-in-out 
+                  transform hover:scale-105 active:scale-95
+                "
+                onClick={() => navigate("/create")}
+              >
+                Create Resume
+              </button>
+
               <button
                 onClick={() => setSelected(null)}
                 className="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 rounded-full p-2"

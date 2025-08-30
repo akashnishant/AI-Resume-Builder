@@ -18,6 +18,7 @@ import UnverifiedUsers from "./pages/admin/UnverifiedUsers";
 import SubscribedUsers from "./pages/admin/SubscribedUsers";
 import Dashboard from "./pages/Dashboard";
 import ResumeTemplatesGallery from "./pages/ResumeTemplatesGallery";
+import CreateResume from "./pages/CreateResume";
 
 function App({userInfo}) {
   const user = userInfo !== null && userInfo !== undefined ? userInfo : null;
@@ -34,7 +35,8 @@ function App({userInfo}) {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/templates" element={<ResumeTemplatesGallery />} />
-        {/* <Route path="/templates" element={<TemplateGallery />} /> */}
+        <Route path="/create" element={<CreateResume />} />
+        
 
         {/* Protected Dashboard Routes */}
         <Route
