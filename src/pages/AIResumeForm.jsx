@@ -4,8 +4,14 @@ import { Wand2, X } from "lucide-react";
 import Card from "../components/common/Card";
 import SecondaryButton from "../components/common/SecondaryButton";
 import TextArea from "../components/common/TextArea";
+import getSystemPrompt from "../utils/systemPrompt";
+import getExperienceSystemPrompt from "../utils/experienceSystemPrompt";
+import getProjectSystemPrompt from "../utils/projectSystemPrompt";
 
 const AIResumeForm = (props) => {
+  const WORKER_ENDPOINT = "https://ai-resume.akashnishant25.workers.dev";
+
+  const [loading, setLoading] = useState(false);
   const [openAISummaryModal, setOpenAISummaryModal] = useState(false);
   const [openAIExpBulletModal, setOpenAIExpBulletModal] = useState(false);
   const [openAIProjectDescModal, setOpenAIProjectDescModal] = useState(false);
@@ -75,8 +81,18 @@ const AIResumeForm = (props) => {
   };
 
   // Improve Summary with AI
-  const improveSummaryWithAI = async () => {
-    setImprovedSummary("Generating... hgh hjh jhjhkjh jhkjhjk jhkjhk jhkjhkj jhkjhjk jhkjhjk jhkjhkj jhkjhk jhkjhkjh jkh jhkhjh kjhkjh jhkjh kjhkjh kjhjhkj jhkjhk jhj hjkhjkh kjh jhkjhjh jhkjhkjh jhkjhjk jhkjhkhjh jjhkjhjhjk hk");
+  const improveSummaryWithAI = async (summary) => {
+    setLoading(true);
+    const data = await callGroqAPIForSummary(summary + `\n\nTone: ${tone}\nSeniority: ${seniority}`);
+    let aiResponse = "";
+    if(data && data?.choices?.length) {
+      aiResponse = data?.choices[0]?.message?.content;
+    } else if(aiResponse?.error?.message === "Internal Server Error") {
+      aiResponse = "There is some error at my end. Please try after some time."
+    } else {
+      aiResponse = "Please try after few minutes";
+    }
+    setImprovedSummary(aiResponse);
   }
   
   //Handle AI Exp Bullet Modal
@@ -87,8 +103,18 @@ const AIResumeForm = (props) => {
   };
 
   // Improve Exp Bullet with AI
-  const improveExpBulletWithAI = async () => {
-    setImprovedExpBullet("Generating Bullet...");
+  const improveExpBulletWithAI = async (expBullet) => {
+    setLoading(true);
+    const data = await callGroqAPIForExperience(expBullet + `\n\nTone: ${tone}\nSeniority: ${seniority}`);
+    let aiResponse = "";
+    if(data && data?.choices?.length) {
+      aiResponse = data?.choices[0]?.message?.content;
+    } else if(aiResponse?.error?.message === "Internal Server Error") {
+      aiResponse = "There is some error at my end. Please try after some time."
+    } else {
+      aiResponse = "Please try after few minutes";
+    }
+    setImprovedExpBullet(aiResponse);
   }
   
   //Handle AI Project Desc Modal
@@ -99,8 +125,149 @@ const AIResumeForm = (props) => {
   };
 
   // Improve Project Desc with AI
-  const improveProjectDescWithAI = async () => {
-    setImprovedProjectDesc("Generating Project Desc...");
+  const improveProjectDescWithAI = async (projectDesc) => {
+    setLoading(true);
+    const data = await callGroqAPIForProject(projectDesc + `\n\nTone: ${tone}\nSeniority: ${seniority}`);
+    let aiResponse = "";
+    if(data && data?.choices?.length) {
+      aiResponse = data?.choices[0]?.message?.content;
+    } else if(aiResponse?.error?.message === "Internal Server Error") {
+      aiResponse = "There is some error at my end. Please try after some time."
+    } else {
+      aiResponse = "Please try after few minutes";
+    }
+    setImprovedProjectDesc(aiResponse);
+  }
+
+  // AI APIs would go here - Summary
+  async function callGroqAPIForSummary(text) {
+    if (
+      !WORKER_ENDPOINT
+    ) {
+      throw new Error("Cloudflare Worker endpoint not configured");
+    }
+
+    const requestBody = {
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: getSystemPrompt() },
+          { role: "user", content: text },
+        ],
+        temperature: 0.5,
+        max_tokens: 1000,
+      };
+
+    const response = await fetch(WORKER_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Worker Error Response:", errorText);
+      setLoading(false);
+      throw new Error(`Worker Error: ${response.status} - ${errorText}`);
+    }
+
+    setLoading(false);
+    return await response.json();
+  }
+  
+  // AI APIs would go here - Experience
+  async function callGroqAPIForExperience(text) {
+    if (
+      !WORKER_ENDPOINT
+    ) {
+      throw new Error("Cloudflare Worker endpoint not configured");
+    }
+
+    const requestBody = {
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: getExperienceSystemPrompt() },
+          { role: "user", content: text },
+        ],
+        temperature: 0.5,
+        max_tokens: 1000,
+      };
+
+    const response = await fetch(WORKER_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Worker Error Response:", errorText);
+      setLoading(false);
+      throw new Error(`Worker Error: ${response.status} - ${errorText}`);
+    }
+
+    setLoading(false);
+    return await response.json();
+  }
+  
+  // AI APIs would go here - Project
+  async function callGroqAPIForProject(text) {
+    if (
+      !WORKER_ENDPOINT
+    ) {
+      throw new Error("Cloudflare Worker endpoint not configured");
+    }
+
+    const requestBody = {
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: getProjectSystemPrompt() },
+          { role: "user", content: text },
+        ],
+        temperature: 0.5,
+        max_tokens: 1000,
+      };
+
+    const response = await fetch(WORKER_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Worker Error Response:", errorText);
+      setLoading(false);
+      throw new Error(`Worker Error: ${response.status} - ${errorText}`);
+    }
+
+    setLoading(false);
+    return await response.json();
+  }
+
+  // ---------- Loader Overlay ----------
+  function FuturisticLoader({ visible, label = "Improving your data..." }) {
+    if (!visible) return null;
+    return (
+      <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-gray-950/80">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl animate-pulse" />
+        <div className="relative w-[90vw] max-w-md rounded-2xl bg-gray-900/90 p-6 shadow-2xl">
+          <div className="mx-auto mb-5 flex justify-center">
+            <div className="flex space-x-2">
+              <span className="h-3 w-3 animate-bounce rounded-full bg-blue-400" />
+              <span className="h-3 w-3 animate-bounce rounded-full bg-purple-400 [animation-delay:150ms]" />
+              <span className="h-3 w-3 animate-bounce rounded-full bg-pink-400 [animation-delay:300ms]" />
+            </div>
+          </div>
+          <p className="text-center text-sm text-gray-200">{label}</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -150,7 +317,7 @@ const AIResumeForm = (props) => {
       {/* Summary */}
       <textarea
         className="w-full p-2 rounded mb-2 bg-black"
-        rows="3"
+        rows="6"
         placeholder="Seasoned engineer with 8+ years building scalable web platforms. Passionate about DX, performance, and elegant UX."
         value={resumeData.summary}
         onChange={(e) => setResumeData({ ...resumeData, summary: e.target.value })}
@@ -184,7 +351,7 @@ const AIResumeForm = (props) => {
           <textarea
             className="p-2 rounded w-full mb-2 bg-black"
             placeholder="Achievements / Bullets"
-            rows="2"
+            rows="6"
             value={exp.bullets.join("\n")}
             onChange={(e) =>
               handleChange("experience", i, "bullets", e.target.value.split("\n"))
@@ -228,7 +395,7 @@ const AIResumeForm = (props) => {
           <textarea
             className="p-2 rounded w-full mb-2 bg-black"
             placeholder="Description"
-            rows="2"
+            rows="6"
             value={exp.desc.join("\n")}
             onChange={(e) =>
               handleChange("projects", i, "desc", e.target.value.split("\n"))
@@ -606,6 +773,8 @@ const AIResumeForm = (props) => {
             </div>
           </div>
         )}
+        {/* Global Loader */}
+      <FuturisticLoader visible={loading} />
     </div>
   );
 };
