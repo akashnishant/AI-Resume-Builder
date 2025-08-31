@@ -11,6 +11,7 @@ import {
   Sparkles,
   ArrowLeft,
   ArrowRight,
+  X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/common/Card";
@@ -258,6 +259,10 @@ export default function AI() {
     setLoading(false);
   }
 
+  const handleAISummaryModal = () => {
+    setOpenAISummaryModal(true);
+  }
+
   return (
     <>
     <ScrollTop />
@@ -297,60 +302,7 @@ export default function AI() {
       <main className="mx-auto max-w-6xl px-4 pb-16">
         <AIResumeForm />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {/* Bullet Improver */}
-          <Card
-            icon={Wand2}
-            title="Resume Bullet Improver"
-            subtitle="Make any bullet sharper with tone & seniority controls"
-            actions={
-              <>
-                <SecondaryButton onClick={() => { setBulletIn(SAMPLE.bullet); setBulletOut(""); }}>Use sample</SecondaryButton>
-                <Button onClick={runBullet}><Wand2 className="h-4 w-4" /> Improve</Button>
-                {bulletOut && <CopyBtn text={bulletOut} />}
-              </>
-            }
-          >
-            <TextArea
-              label="Your bullet"
-              value={bulletIn}
-              onChange={setBulletIn}
-              rows={4}
-              placeholder="E.g. built api endpoints..."
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <label className="text-sm">
-                <span className="mb-1 block text-gray-300">Tone</span>
-                <select
-                  className="w-full rounded-lg border border-white/10 bg-gray-950 px-3 py-2 text-sm text-white outline-none focus:border-blue-500"
-                  value={tone}
-                  onChange={(e) => setTone(e.target.value)}
-                >
-                  <option value="professional">Professional</option>
-                  <option value="confident">Confident</option>
-                  <option value="friendly">Friendly</option>
-                </select>
-              </label>
-              <label className="text-sm">
-                <span className="mb-1 block text-gray-300">Seniority</span>
-                <select
-                  className="w-full rounded-lg border border-white/10 bg-gray-950 px-3 py-2 text-sm text-white outline-none focus:border-blue-500"
-                  value={seniority}
-                  onChange={(e) => setSeniority(e.target.value)}
-                >
-                  <option value="junior">Junior</option>
-                  <option value="mid">Mid</option>
-                  <option value="senior">Senior</option>
-                </select>
-              </label>
-            </div>
-            {bulletOut && (
-              <div className="rounded-xl border border-white/10 bg-gray-950 p-3 text-sm">
-                <div className="mb-1 text-xs text-gray-400">Improved bullet</div>
-                <p className="leading-relaxed">{bulletOut}</p>
-              </div>
-            )}
-          </Card>
-
+          
           {/* Job Match & Gap */}
           <Card
             icon={FileSearch}
