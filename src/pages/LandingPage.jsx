@@ -57,7 +57,7 @@ const LandingPage = ({userInfo}) => {
                     gap: "5px",
                     padding: "0 18px 0 0",
                   }}
-                  onClick={() => navigate("/ai-demo")}
+                  onClick={() => userInfo ? navigate("/ai") : navigate("/ai-demo")}
                 >
                   {/* Large AI SVG with nodes */}
                   <span
@@ -66,7 +66,7 @@ const LandingPage = ({userInfo}) => {
                   >
                     <Sparkles className="h-6 w-6 text-blue-400" />
                   </span>
-                  Try AI Demo
+                  {userInfo ? 'Use AI' : 'Try AI Demo'}
                 </button>
               </div>
             </div>

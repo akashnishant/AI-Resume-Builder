@@ -19,6 +19,7 @@ import SubscribedUsers from "./pages/admin/SubscribedUsers";
 import Dashboard from "./pages/Dashboard";
 import ResumeTemplatesGallery from "./pages/ResumeTemplatesGallery";
 import CreateResume from "./pages/CreateResume";
+import AI from "./pages/AI";
 
 function App({userInfo}) {
   const user = userInfo !== null && userInfo !== undefined ? userInfo : null;
@@ -31,6 +32,7 @@ function App({userInfo}) {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginSignUpPage />} />
+        <Route path="/register" element={<LoginSignUpPage />} />
         <Route path="/ai-demo" element={<AIDemo />} />
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -44,6 +46,16 @@ function App({userInfo}) {
           element={
             <ProtectedRoute user={user !== null && user !== undefined ? user?.user : null}>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        ></Route>
+        
+        {/* Protected AI Routes */}
+        <Route
+          path="/ai"
+          element={
+            <ProtectedRoute user={user !== null && user !== undefined ? user?.user : null}>
+              <AI />
             </ProtectedRoute>
           }
         ></Route>

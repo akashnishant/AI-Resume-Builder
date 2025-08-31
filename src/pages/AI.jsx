@@ -21,6 +21,7 @@ import TextArea from "../components/common/TextArea";
 import CopyBtn from "../components/common/CopyBtn";
 import Progress from "../components/common/Progress";
 import ScrollTop from "../components/ScrollTop";
+import AIResumeForm from "./AIResumeForm";
 
 /**
  * AI Demo Page
@@ -183,7 +184,7 @@ const SAMPLE = {
   company: "Acme Corp",
 };
 
-export default function AIDemoPage() {
+export default function AI() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -265,14 +266,12 @@ export default function AIDemoPage() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-gray-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2 text-sm text-gray-300">
-            <Sparkles className="h-4 w-4 text-blue-400" />
-            <span>Live AI Demos</span>
-          </div>
-          <div className="flex gap-2">
             <SecondaryButton onClick={() => window.history.back()}>
               <ArrowLeft className="h-4 w-4" /> Back
             </SecondaryButton>
-            {/* <Button onClick={() => alert("Route to /builder or your signup flow")}>Continue <ArrowRight className="h-4 w-4" /></Button> */}
+          </div>
+          <div className="flex gap-2">
+            
           </div>
         </div>
       </header>
@@ -286,20 +285,17 @@ export default function AIDemoPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center text-2xl font-semibold md:text-4xl"
           >
-            Try the <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Power of AI</span>
+            Create Resume with the <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Power of AI</span>
           </motion.h1>
           <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-gray-300 md:text-base">
-            These micro‑demos run instantly on sample data. Paste your text to see results.
-            We never store inputs in this demo.
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-gray-300 md:text-base">
-            Note: <b className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">This is only a demo. For better results,</b> <span>{<Button onClick={() => navigate('/register', {state: { fromAIDemo: true }})}>Join Us</Button>}</span>
+            Build your resume faster with AI-assisted tools. Improve bullets, match jobs, extract skills, draft cover letters, and prep for interviews — all in one place.
           </p>
         </div>
       </section>
 
       {/* Grid of Demos */}
       <main className="mx-auto max-w-6xl px-4 pb-16">
+        <AIResumeForm />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           {/* Bullet Improver */}
           <Card
@@ -510,25 +506,10 @@ export default function AIDemoPage() {
             </div>
           </Card> */}
         </div>
-
-        {/* CTA */}
-        <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-white/10 bg-gray-900/70 p-6 text-center">
-          <h4 className="text-lg font-semibold">Ready to build your resume with AI?</h4>
-          <p className="mt-2 text-sm text-gray-300">Your content is private. Export to PDF and share instantly.</p>
-          <div className="mt-4 flex justify-center gap-2">
-            <Button onClick={() => navigate('/register')}>Join Us</Button>
-            <SecondaryButton onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Back to top</SecondaryButton>
-          </div>
-        </div>
       </main>
 
       {/* Global Loader */}
       <FuturisticLoader visible={loading} />
-
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-8 text-center text-xs text-gray-400">
-        Demo only. Replace the on-device logic with your API calls.
-      </footer>
     </div>
     </>
   );

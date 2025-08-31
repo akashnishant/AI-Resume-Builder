@@ -3,12 +3,13 @@ import { User, Lock, Mail, Eye, EyeOff } from "lucide-react";
 import ForgotPassword from "./ForgotPassword";
 import { connect } from "react-redux";
 import { login, register } from "../redux/actions/authAction"; // <-- Redux actions
-import { useNavigate } from "react-router-dom"; // if using react-router
+import { useNavigate, useLocation } from "react-router-dom"; // if using react-router
 import FullPageLoader from "../components/loaders/FullPageLoader";
 import ScrollTop from "../components/ScrollTop";
 
 const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isFromAIDemo, setIsFromAIDemo] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // redirect if already logged in
   useEffect(() => {
@@ -35,6 +37,18 @@ const LoginSignUpPage = ({ login, register, loading, error, userInfo }) => {
         navigate("/"); // <-- change to your protected route
     }
   }, [userInfo, navigate]);
+
+  useEffect(() => {
+    console.log(location);
+    if(location.pathname === '/register') {
+      setIsLogin(false);
+    }
+    if(location.state && location.state.fromAIDemo) {
+      setIsFromAIDemo(true);
+    } else {
+      setIsFromAIDemo(false);
+    }
+  }, [])
 
   // validation functions same as before...
   const validateEmail = (email) => {
